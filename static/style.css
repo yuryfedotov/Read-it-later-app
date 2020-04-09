@@ -1,0 +1,43 @@
+html {
+    font-family: "Oxygen", Helvetica, sans-serif;
+}
+
+#signature {
+    color: grey;
+    font-size: 18px;
+}
+
+.logo {
+    height: 100px;
+}
+
+.link_picture {
+    height: 25px;
+}
+
+.title_column {
+    width: 300px;
+    text-align: left;
+}
+
+.url_column {
+    width: 500px;
+    text-align: left;
+}
+
+.mark_column {
+    width: 130px;
+}
+
+.delete_column {
+    width: 100px;
+}
+
+td form {
+    text-align: center;
+}
+
+input[type=submit] {
+    background-color: #545271;
+    color: white;
+}

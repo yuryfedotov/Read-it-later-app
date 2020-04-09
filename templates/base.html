@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
+        <title>Read It Later | Iurii Fedotov</title>
+    </head>
+    
+    <body>
+        
+        <img class="logo" src="/static/logo.png">
+        <h1>Save For Later: Bookmark App</h1>
+        <p id="signature">Developed by Iurii Fedotov<p>
+
+        <hr>
+
+        <h2>Add a new bookmark:</h2>
+        <p>Please, give a full URL: https://website.com</p>
+        <form action="/add" method="POST">
+            <input type="text" name="bookmarktitle" placeholder="Input title" required>
+            <input type="text" name="bookmarklink" placeholder="Input URL" required>
+            <input type="submit" value="Add bookmark">
+        </form>
+
+        <hr>
+
+        {% if unread | length != 0 %}
+        
+        <h2>Unread bookmarks:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col" class="title_column">Title</th>
+                    <th scope="col" class="url_column">URL</th>
+                    <th scope="col" class="mark_column">Mark as read</th>
+                    <th scope="col" class="delete_column">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for bookmark in unread %}
+                <tr>
+                    <td><img class="link_picture" src="/static/link.png"></td>
+                    <td>{{ bookmark.title }}</td>
+                    <td><a href="{{bookmark.link}}" target="_blank">{{ bookmark.link }}</a></td>
+                    <td>
+                        <form action="{{ url_for('mark_read', id=bookmark.id)}}">
+                            <input type="submit" value="Mark as read" class="table_button">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('delete', id=bookmark.id)}}">
+                            <input type="submit" value="Delete" class="table_button">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% endif %}
+
+        {% if read | length != 0 %}
+
+        <h2>Read bookmarks:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col" class="title_column">Title</th>
+                    <th scope="col" class="url_column">URL</th>
+                    <th scope="col" class="mark_column">Mark unread</th>
+                    <th scope="col" class="delete_column">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for bookmark in read %}
+                <tr>
+                    <td><img class="link_picture" src="/static/link.png"></td>
+                    <td>{{ bookmark.title }}</td>
+                    <td><a href="{{bookmark.link}}" target="_blank">{{ bookmark.link }}</a></td>
+                    <td>
+                        <form action="{{ url_for('mark_unread', id=bookmark.id)}}">
+                            <input type="submit" value="Mark unread">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('delete', id=bookmark.id)}}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% endif %}
+
+    </body>
+</html>
